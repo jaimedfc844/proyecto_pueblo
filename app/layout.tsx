@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fotos del pueblo",
-  description: "Álbum compartido: sube y mira las fotos del evento.",
+  title: "Fotos del Puti",
+  description: "Si pasó en el Puti, aquí tiene que estar la foto. ¡Sube las tuyas!",
 };
 
 export const viewport: Viewport = {
