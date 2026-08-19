@@ -50,13 +50,12 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-neutral-50">
       <header className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-neutral-200">
+        <div className="h-1 bg-accent" />
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-lg font-semibold text-neutral-900">
-            📷 Fotos del pueblo
-          </h1>
+          <h1 className="text-lg font-semibold text-black">📷 Fotos del pueblo</h1>
           <Link
             href="/upload"
-            className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 text-white px-4 py-2 text-sm font-medium hover:bg-neutral-700 transition"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent text-white px-4 py-2 text-sm font-medium hover:bg-accent-dark transition"
           >
             + Subir foto
           </Link>
@@ -87,7 +86,7 @@ export default async function Home() {
 
       <Link
         href="/upload"
-        className="sm:hidden fixed bottom-5 right-5 rounded-full bg-neutral-900 text-white w-14 h-14 flex items-center justify-center text-2xl shadow-lg"
+        className="sm:hidden fixed bottom-5 right-5 rounded-full bg-accent text-white w-14 h-14 flex items-center justify-center text-2xl shadow-lg active:bg-accent-dark"
         aria-label="Subir foto"
       >
         +

@@ -124,7 +124,7 @@ export default function UploadPage() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-full aspect-4/3 rounded-xl border-2 border-dashed border-neutral-300 flex flex-col items-center justify-center gap-2 text-neutral-500 hover:border-neutral-400"
+              className="w-full aspect-4/3 rounded-xl border-2 border-dashed border-neutral-300 flex flex-col items-center justify-center gap-2 text-neutral-500 hover:border-accent hover:text-accent transition-colors"
             >
               <span className="text-3xl">📷</span>
               <span className="text-sm">Toca para hacer o elegir una foto</span>
@@ -142,7 +142,7 @@ export default function UploadPage() {
             maxLength={280}
             rows={3}
             placeholder="¿Qué se ve en la foto?"
-            className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+            className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           />
           <p className="mt-1 text-xs text-neutral-400 text-right">
             {caption.length}/280
@@ -159,7 +159,7 @@ export default function UploadPage() {
             onChange={(e) => setName(e.target.value)}
             maxLength={80}
             placeholder="Anónimo"
-            className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+            className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -168,7 +168,7 @@ export default function UploadPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-neutral-900 text-white py-3 text-sm font-medium disabled:opacity-50"
+          className="w-full rounded-lg bg-accent text-white py-3 text-sm font-medium hover:bg-accent-dark transition-colors disabled:opacity-50"
         >
           {submitting ? "Subiendo…" : "Subir foto"}
         </button>
