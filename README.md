@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fotos del pueblo
 
-## Getting Started
+A shared photo gallery: anyone with the link (or who scans the QR code) can upload a photo with a caption, and it shows up immediately for everyone else. Built with Next.js, Vercel Blob (photo storage) and Postgres/Neon (captions + metadata).
 
-First, run the development server:
+## Pages
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `/` — the gallery (public, no login).
+- `/upload` — the upload form (photo + caption + optional name).
+- `/qr` — a printable page with a QR code pointing at the site, for posting at the event.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install dependencies:
+   ```
+   npm install
+   ```
+2. Copy `.env.example` to `.env.local` and fill in `DATABASE_URL` and `BLOB_READ_WRITE_TOKEN` (see "Provisioning storage" below — you can point local dev at the same Vercel-hosted Postgres/Blob store you use in production, or set up your own).
+3. Run the dev server:
+   ```
+   npm run dev
+   ```
+4. Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The photos table (`photos`) is created automatically on first request — no manual migration needed.
 
-## Learn More
+## Deploying to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Push this repo to GitHub (or any git provider), then import it at https://vercel.com/new — or deploy straight from the CLI:
+   ```
+   npx vercel
+   ```
+2. **Add a Postgres database:** in the Vercel project dashboard → Storage → Create Database → choose Postgres (Neon). Connect it to the project; this sets `DATABASE_URL` automatically.
+3. **Add Blob storage:** Storage → Create Database → Blob. Connect it to the project; this sets `BLOB_READ_WRITE_TOKEN` automatically.
+4. Redeploy (or trigger a new deploy) so the new env vars take effect.
+5. Visit `https://<your-project>.vercel.app/qr` to get the printable QR code — it automatically encodes whatever domain you're viewing it from, so it works the same on a custom domain if you add one later.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes / things you may want to change
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Moderation:** uploads currently go live immediately with no approval step, per the "open event gallery" design. If you'd rather review photos before they're public, add a `status` column (e.g. `pending`/`approved`) and an admin page to approve — ask and I can add this.
+- **Abuse protection:** basic validation only (image type, 10MB size cap, non-empty caption). For a public link at a real event, consider adding simple rate limiting if it becomes an issue.
+- **Language:** UI copy is in Spanish (matching the project name). Ask if you'd like it in another language, or bilingual.
+- **Image size:** photos are resized/compressed client-side (max 1600px, JPEG ~82% quality) before upload to keep storage and load times reasonable.
